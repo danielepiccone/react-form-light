@@ -1,6 +1,6 @@
 {
   "name": "react-form",
-  "version": "1.3.0",
+  "version": "1.2.8",
   "description": "React Form is a lightweight framework and utility for building powerful forms in React applications.",
   "license": "MIT",
   "homepage": "https://github.com/tannerlinsley/react-form#readme",
@@ -8,22 +8,32 @@
     "type": "git",
     "url": "git+https://github.com/tannerlinsley/react-form.git"
   },
-  "keywords": ["react", "form", "forms", "form builder", "nested forms"],
+  "keywords": [
+    "react",
+    "form",
+    "forms",
+    "form builder",
+    "nested forms"
+  ],
   "main": "lib/index.js",
-  "files": ["lib/", "react-form.js", "react-form.css", "media/*.png"],
+  "files": [
+    "lib/",
+    "react-form.js",
+    "react-form.css",
+    "media/*.png"
+  ],
   "scripts": {
-    "build": "babel src --out-dir lib --source-maps inline",
-    "watch": "onchange 'src/**' -i -- yarn build",
-    "test": "eslint src",
-    "umd": "rimraf react-form.js && webpack --config umd.webpack.js",
-    "prepublish": "yarn build && yarn umd",
-    "postpublish": "git push --tags",
-    "docs": "yarn watch & cd docs && yarn && yarn start",
-    "docs:build": "yarn build && cd docs && yarn && yarn run build"
+    "build:node": "babel src --out-dir lib --source-maps inline",
+    "watch": "onchange 'src/**' -i -- npm-run-all build:*",
+    "lint": "standard",
+    "jest": "jest src/ --watchAll",
+    "coverage": "jest src/ --coverage",
+    "prepublish": "npm-run-all build:* && npm run umd",
+    "postpublish": "git push --tags"
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "prop-types": "^15.5.10"
+    "prop-types": "^15.5.8"
   },
   "peerDependencies": {
     "react": "^15.3.1"
@@ -35,24 +45,56 @@
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-2": "^6.13.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
     "eslint": "^4.1.1",
     "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^5.1.0",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-react": "^7.1.0",
     "eslint-plugin-standard": "^3.0.1",
     "github-markdown-css": "^2.4.1",
     "html-loader": "^0.4.4",
+    "jest": "^20.0.4",
+    "jest-util": "^20.0.3",
     "markdown-loader": "^0.1.7",
+    "nib": "^1.1.2",
+    "npm-run-all": "^3.1.1",
     "onchange": "^3.0.2",
     "react": "^15.4.1",
-    "react-dom": "^15.4.1",
+    "react-dom": "^15.5.4",
+    "react-test-renderer": "^15.5.4",
     "rimraf": "^2.6.1",
+    "sinon": "^2.3.2",
+    "standard": "^8.0.0",
+    "stylus": "^0.54.5",
+    "uglifyify": "^3.0.3",
+    "unexpected": "^10.29.0",
+    "unexpected-react": "^4.1.0",
+    "unexpected-sinon": "^10.7.1",
     "webpack": "^2.6.1"
   },
+  "browserify-shim": {
+    "react": "global:React"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "node_modules",
+      "dist",
+      "lib",
+      "example",
+      "react-form.js",
+      "stories",
+      "docs"
+    ]
+  },
   "babel": {
-    "presets": ["es2015", "stage-2", "react"],
-    "plugins": ["transform-object-assign"]
+    "presets": [
+      "es2015",
+      "stage-2",
+      "react"
+    ],
+    "plugins": [
+      "transform-object-assign"
+    ]
   }
 }
