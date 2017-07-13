@@ -79,6 +79,52 @@ describe('Form', () => {
     )
   })
 
+  it('updates the values when receiving new values as prop', async () => {
+    const values = { foo: 'bar' }
+
+    const instance = getFormInstance(
+      <Form values={values} />
+    )
+
+    expect(
+      instance.state.values,
+      'to exhaustively satisfy',
+      values
+    )
+
+    const newValues = { baz: 'bar' }
+
+    instance.componentWillReceiveProps({ values: newValues })
+
+    expect(
+      instance.state.values,
+      'to exhaustively satisfy',
+      newValues
+    )
+  })
+
+  it('keeps the same values if a prop is passed', async () => {
+    const values = { foo: 'bar' }
+
+    const instance = getFormInstance(
+      <Form values={values} />
+    )
+
+    expect(
+      instance.state.values,
+      'to exhaustively satisfy',
+      values
+    )
+
+    instance.componentWillReceiveProps({ baz: 'bar' })
+
+    expect(
+      instance.state.values,
+      'to exhaustively satisfy',
+      values
+    )
+  })
+
   describe('props.defaultValues', () => {
     it('initializes the form with default values', () => {
       const instance = getFormInstance(

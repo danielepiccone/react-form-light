@@ -88,14 +88,14 @@ class Form extends React.Component {
     this.emitChange(this.state, true)
   }
 
-  componentWillReceiveProps (props) {
-    if (props.values === this.props.values) {
-      return
-    }
+  componentWillReceiveProps ({ values }) {
+    if (typeof values === 'object') {
+      if (this.props.values === values) {
+        return
+      }
 
-    this.setFormState({
-      values: props.values || {}
-    }, true)
+      this.setFormState({ values }, true)
+    }
   }
 
   componentWillUmount () {
