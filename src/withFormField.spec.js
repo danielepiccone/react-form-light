@@ -1,3 +1,5 @@
+/* eslint-env mocha */
+
 import React from 'react'
 import sinon from 'sinon'
 import renderer from 'react-test-renderer'
@@ -26,7 +28,7 @@ describe('withFormField', () => {
       return null
     })
 
-    const tree = renderer.create(
+    renderer.create(
       <Form>
         <FormField />
       </Form>
@@ -58,7 +60,7 @@ describe('withFormField', () => {
       return null
     })
 
-    const tree = renderer.create(
+    renderer.create(
       <Form>
         <FormField />
       </Form>
@@ -79,7 +81,7 @@ describe('withFormField', () => {
       return null
     })
 
-    const tree = renderer.create(
+    renderer.create(
       <Form>
         <FormField />
       </Form>
