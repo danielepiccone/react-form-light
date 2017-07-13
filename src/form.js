@@ -98,7 +98,7 @@ class Form extends React.Component {
     }
   }
 
-  componentWillUmount () {
+  componentWillUnmount () {
     this.props.willUnmount(this.state, this.props, this)
   }
 
