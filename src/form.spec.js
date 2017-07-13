@@ -1,7 +1,8 @@
+/* eslint-env mocha */
+
 import React from 'react'
 import sinon from 'sinon'
 import renderer from 'react-test-renderer'
-import TestUtils from 'react-dom/test-utils'
 
 import unexpected from 'unexpected'
 import unexpectedReact from 'unexpected-react'
@@ -13,8 +14,8 @@ const expect = unexpected
   .use(unexpectedReact)
 
 const getFormInstance = jsx => {
-    const tree = renderer.create(jsx)
-    return tree._component._renderedComponent._instance
+  const tree = renderer.create(jsx)
+  return tree._component._renderedComponent._instance
 }
 
 describe('Form', () => {
@@ -22,7 +23,7 @@ describe('Form', () => {
     return expect(
       formShape,
       'to be defined'
-    );
+    )
   })
 
   it('renders as a div as a default', () => {
@@ -37,7 +38,7 @@ describe('Form', () => {
     const Foo = props => <span>{props.foo}</span>
 
     return expect(
-      <Form foo='bar' component={Foo}/>,
+      <Form foo='bar' component={Foo} />,
       'to render as',
       <Foo foo='bar' />
     )
@@ -52,7 +53,7 @@ describe('Form', () => {
   })
 
   it('exposes the form api on the context', async () => {
-    let renderContext;
+    let renderContext
 
     const Foo = (props, context) => {
       renderContext = context
@@ -61,7 +62,7 @@ describe('Form', () => {
 
     Foo.contextTypes = Form.childContextTypes
 
-    const tree = renderer.create(
+    renderer.create(
       <Form component={Foo} />
     )
 
@@ -73,7 +74,7 @@ describe('Form', () => {
           // TODO assert all form API
           setValue: expect.it('to be defined'),
           getValue: expect.it('to be defined'),
-          submitForm: expect.it('to be defined'),
+          submitForm: expect.it('to be defined')
         }
       }
     )
@@ -157,7 +158,7 @@ describe('Form', () => {
         }
       })
       const instance = getFormInstance(
-        <Form loadState={loadState}/>
+        <Form loadState={loadState} />
       )
       return expect(
         instance.state,
@@ -278,9 +279,8 @@ describe('Form', () => {
     })
   })
 
-
   describe('form api', () => {
-    let instance;
+    let instance
 
     beforeEach(() => {
       instance = getFormInstance(
@@ -291,23 +291,22 @@ describe('Form', () => {
     })
 
     it('initialize the form with empty values', () => {
-      const { state, setValue, getValue } = instance;
+      const { state } = instance
       expect(state.values, 'to exhaustively satisfy', {})
     })
 
     it('sets and get the value of a field', () => {
-      const { state, setValue, getValue } = instance;
+      const { state, setValue, getValue } = instance
       setValue('foo', 'bar')
       expect(state.values.foo, 'to be', 'bar')
       expect(getValue('foo'), 'to be', 'bar')
     })
 
     it('sets and get the touched prop of a field', () => {
-      const { state, setTouched, getTouched } = instance;
+      const { state, setTouched, getTouched } = instance
       setTouched('foo')
       expect(state.touched.foo, 'to be', true)
       expect(getTouched('foo'), 'to be', true)
     })
   })
-
 })

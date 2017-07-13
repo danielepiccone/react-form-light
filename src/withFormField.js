@@ -8,7 +8,7 @@ export default function withFormField (field, Component) {
     Component = arguments[0]
   }
 
-  function formField(props, context) {
+  function formField (props, context) {
     let form
     if (field) {
       form = _.mapValues(context.formApi, method => _.bind(method, field))

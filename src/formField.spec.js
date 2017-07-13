@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 
 import React from 'react'
-import sinon from 'sinon';
+import sinon from 'sinon'
 import renderer from 'react-test-renderer'
 
 import unexpected from 'unexpected'

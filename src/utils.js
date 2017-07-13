@@ -112,6 +112,6 @@ function isStringValidNumber (str) {
   return !isNaN(str)
 }
 
-function bind(cb, ...args) {
+function bind (cb, ...args) {
   return (...args2) => cb(...args, ...args2)
 }

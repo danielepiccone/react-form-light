@@ -33,8 +33,8 @@ const formShape = PropTypes.shape({
   swapValues: PropTypes.func.isRequired,
   setAllTouched: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
-  submitForm: PropTypes.func.isRequired,
-});
+  submitForm: PropTypes.func.isRequired
+})
 
 class Form extends React.Component {
   constructor (props) {

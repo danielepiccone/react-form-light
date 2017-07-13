@@ -1,5 +1,5 @@
 import React from 'react'
-import sinon from 'sinon';
+import sinon from 'sinon'
 import renderer from 'react-test-renderer'
 
 import unexpected from 'unexpected'
@@ -19,11 +19,11 @@ describe('withFormField', () => {
   })
 
   it('gets the form api in a prop when in the form context', () => {
-    let formApi;
+    let formApi
 
     const FormField = withFormField(props => {
       formApi = props.form
-      return null;
+      return null
     })
 
     const tree = renderer.create(
@@ -45,17 +45,17 @@ describe('withFormField', () => {
         'resetForm',
         'submitForm',
         'addValue',
-        'removeValue',
+        'removeValue'
       ]
     )
   })
 
   it('gets the unbounded form api', () => {
-    let formApi;
+    let formApi
 
     const FormField = withFormField(props => {
       formApi = props.form
-      return null;
+      return null
     })
 
     const tree = renderer.create(
@@ -68,15 +68,15 @@ describe('withFormField', () => {
       formApi.getTouched.length,
       'to be',
       1
-    );
+    )
   })
 
   it('gets the bounded api when passing a field', () => {
-    let formApi;
+    let formApi
 
     const FormField = withFormField('foo', props => {
       formApi = props.form
-      return null;
+      return null
     })
 
     const tree = renderer.create(
@@ -90,7 +90,5 @@ describe('withFormField', () => {
       'to be',
       0
     )
-
   })
-
 })

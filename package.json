@@ -23,16 +23,16 @@
     "media/*.png"
   ],
   "scripts": {
-    "build:node": "babel src --out-dir lib --source-maps inline",
-    "watch": "onchange 'src/**' -i -- npm-run-all build:*",
+    "compile": "babel src/ --out-dir lib --source-maps inline",
+    "watch": "onchange 'src/**' -i -- npm-run-all compile",
     "lint": "standard",
     "jest": "jest src/ --watchAll",
+    "test": "jest src/",
     "coverage": "jest src/ --coverage",
-    "prepublish": "npm-run-all build:* && npm run umd",
+    "prepublish": "npm run compile",
     "postpublish": "git push --tags"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
     "prop-types": "^15.5.8"
   },
   "peerDependencies": {
@@ -41,6 +41,7 @@
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.1",
+    "babel-jest": "^20.0.3",
     "babel-plugin-transform-object-assign": "^6.8.0",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
@@ -49,6 +50,8 @@
     "browserify": "^13.1.0",
     "eslint": "^4.1.1",
     "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "github-markdown-css": "^2.4.1",
@@ -57,11 +60,11 @@
     "jest-util": "^20.0.3",
     "markdown-loader": "^0.1.7",
     "nib": "^1.1.2",
-    "npm-run-all": "^3.1.1",
     "onchange": "^3.0.2",
     "react": "^15.4.1",
     "react-dom": "^15.5.4",
     "react-test-renderer": "^15.5.4",
+    "regenerator-runtime": "^0.10.5",
     "rimraf": "^2.6.1",
     "sinon": "^2.3.2",
     "standard": "^8.0.0",
@@ -85,16 +88,6 @@
       "react-form.js",
       "stories",
       "docs"
-    ]
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "stage-2",
-      "react"
-    ],
-    "plugins": [
-      "transform-object-assign"
     ]
   }
 }
