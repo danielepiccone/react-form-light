@@ -17,7 +17,7 @@ const FormDefaultProps = {
   preSubmit: reop,
   onSubmit: noop,
   postSubmit: noop,
-  component: 'div'
+  component: 'form'
 }
 
 const formShape = PropTypes.shape({

@@ -26,11 +26,11 @@ describe('Form', () => {
     )
   })
 
-  it('renders as a div as a default', () => {
+  it('renders as a <form> as a default', () => {
     return expect(
       <Form />,
       'to render as',
-      <div />
+      <form />
     )
   })
 
@@ -48,7 +48,7 @@ describe('Form', () => {
     return expect(
       <Form foo='bar' />,
       'to render as',
-      <div foo='bar' />
+      <form foo='bar' />
     )
   })
 
@@ -249,6 +249,22 @@ describe('Form', () => {
     })
   })
 
+  describe('props.willUnmount', () => {
+    const willUnmountSpy = sinon.spy()
+
+    const tree = renderer.create(
+      <Form willUnmount={willUnmountSpy} />
+    )
+
+    tree.unmount()
+
+    return expect(
+      willUnmountSpy.called,
+      'to be',
+      true
+    )
+  })
+
   describe('props.submitForm', () => {
     it('calls validation', () => {
       const validateSpy = sinon.spy()
@@ -291,22 +307,103 @@ describe('Form', () => {
     })
 
     it('initialize the form with empty values', () => {
-      const { state } = instance
-      expect(state.values, 'to exhaustively satisfy', {})
+      expect(instance.state.values, 'to exhaustively satisfy', {})
+    })
+
+    it('resets the form to the initial state', () => {
+      const values = { foo: 'bar' }
+
+      instance = getFormInstance(
+        <Form values={values} />
+      )
+
+      const { setValue, resetForm } = instance
+
+      setValue('foo', 'baz')
+
+      resetForm()
+
+      return expect(
+        instance.state.values,
+        'to exhaustively satisfy',
+        values
+      )
     })
 
     it('sets and get the value of a field', () => {
-      const { state, setValue, getValue } = instance
+      const { setValue, getValue } = instance
       setValue('foo', 'bar')
-      expect(state.values.foo, 'to be', 'bar')
-      expect(getValue('foo'), 'to be', 'bar')
+      expect(
+        instance.state.values.foo,
+        'to be',
+        'bar'
+      )
+
+      expect(
+        getValue('foo'),
+        'to be',
+        'bar'
+      )
     })
 
     it('sets and get the touched prop of a field', () => {
-      const { state, setTouched, getTouched } = instance
+      const { setTouched, getTouched } = instance
       setTouched('foo')
-      expect(state.touched.foo, 'to be', true)
-      expect(getTouched('foo'), 'to be', true)
+      expect(
+        instance.state.touched.foo,
+        'to be',
+        true
+      )
+      expect(
+        getTouched('foo'),
+        'to be',
+        true
+      )
+    })
+
+    it('adds a value to an array field', () => {
+      const { addValue, setValue } = instance
+      setValue('foo', [])
+      addValue('foo', 'barz')
+      expect(
+        instance.state.values.foo,
+        'to exhaustively satisfy',
+        ['barz']
+      )
+    })
+
+    it('removes a value from an array field', () => {
+      const { removeValue, setValue } = instance
+      setValue('foo', ['bar', 'moz', 'tex'])
+      removeValue('foo', 1)
+      expect(
+        instance.state.values.foo,
+        'to exhaustively satisfy',
+        ['bar', 'tex']
+      )
+    })
+
+    it('replaces all the value', () => {
+      const { setAllValues } = instance
+
+      expect(
+        instance.state.values,
+        'to exhaustively satisfy',
+        {}
+      )
+
+      const newValues = {
+        foo: 'baz',
+        bar: 'foo'
+      }
+
+      setAllValues(newValues)
+
+      expect(
+        instance.state.values,
+        'to exhaustively satisfy',
+        newValues
+      )
     })
   })
 })
