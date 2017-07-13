@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import _ from './utils'
 
-const noop = () => {}
+const noop = () => undefined
 const reop = d => d
 
 export const FormDefaultProps = {
