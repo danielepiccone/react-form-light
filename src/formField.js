@@ -7,7 +7,7 @@ export default function FormField (
   context
 ) {
   const formApiBound = _.mapValues(context.formApi, d => _.bind(d, field))
-  const form = field ? formAPIBound : context.formApi
+  const form = field ? formApiBound : context.formApi
 
   if (component) {
     return React.createElement(component, { ...restProps, form })

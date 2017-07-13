@@ -1,17 +1,17 @@
+/* eslint-env mocha */
+
 import React from 'react'
 import sinon from 'sinon';
 import renderer from 'react-test-renderer'
 
 import unexpected from 'unexpected'
 import unexpectedReact from 'unexpected-react'
-import unexpectedSinon from 'unexpected-sinon'
 
 import Form from './form'
 import FormField from './formField'
 
 const expect = unexpected
   .use(unexpectedReact)
-  .use(unexpectedSinon)
 
 describe('FormField', () => {
   const mocks = {}
@@ -21,20 +21,20 @@ describe('FormField', () => {
   })
 
   it('when the component prop is there, calls the component constructor', () => {
-    const tree = renderer.create(
+    renderer.create(
       <Form>
         <FormField component={mocks.Component} />
       </Form>
     )
 
     return expect(
-      mocks.Component,
-      'was called'
+      mocks.Component.called,
+      'to be true'
     )
   })
 
   it('passes the form api to the component', () => {
-    const tree = renderer.create(
+    renderer.create(
       <Form>
         <FormField
           foo='bar'
@@ -52,7 +52,7 @@ describe('FormField', () => {
   })
 
   it('passes the props to the component', () => {
-    const tree = renderer.create(
+    renderer.create(
       <Form>
         <FormField
           foo='bar'
