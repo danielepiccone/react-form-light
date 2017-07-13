@@ -1,26 +1,19 @@
 {
-  "name": "react-form",
-  "version": "1.2.8",
-  "description": "React Form is a lightweight framework and utility for building powerful forms in React applications.",
+  "name": "react-form-light",
+  "version": "0.1.0",
+  "description": "A minimal form framework for React",
   "license": "MIT",
-  "homepage": "https://github.com/tannerlinsley/react-form#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tannerlinsley/react-form.git"
+    "url": "https://github.com/dpiccone/react-form-light"
   },
   "keywords": [
     "react",
-    "form",
-    "forms",
-    "form builder",
-    "nested forms"
+    "forms"
   ],
   "main": "lib/index.js",
   "files": [
-    "lib/",
-    "react-form.js",
-    "react-form.css",
-    "media/*.png"
+    "lib/"
   ],
   "scripts": {
     "compile": "babel src/ --out-dir lib --source-maps inline",
@@ -29,8 +22,7 @@
     "jest": "jest src/ --watchAll",
     "test": "jest src/",
     "coverage": "jest src/ --coverage",
-    "prepublish": "npm run compile",
-    "postpublish": "git push --tags"
+    "prepublish": "npm run compile"
   },
   "dependencies": {
     "prop-types": "^15.5.8"
@@ -40,54 +32,29 @@
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
-    "babel-eslint": "^7.1.1",
     "babel-jest": "^20.0.3",
     "babel-plugin-transform-object-assign": "^6.8.0",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-2": "^6.13.0",
-    "babelify": "^7.3.0",
-    "browserify": "^13.1.0",
-    "eslint": "^4.1.1",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^5.1.0",
-    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^7.1.0",
     "eslint-plugin-standard": "^3.0.1",
-    "github-markdown-css": "^2.4.1",
-    "html-loader": "^0.4.4",
     "jest": "^20.0.4",
     "jest-util": "^20.0.3",
-    "markdown-loader": "^0.1.7",
-    "nib": "^1.1.2",
-    "onchange": "^3.0.2",
     "react": "^15.4.1",
     "react-dom": "^15.5.4",
     "react-test-renderer": "^15.5.4",
     "regenerator-runtime": "^0.10.5",
-    "rimraf": "^2.6.1",
     "sinon": "^2.3.2",
     "standard": "^8.0.0",
-    "stylus": "^0.54.5",
-    "uglifyify": "^3.0.3",
     "unexpected": "^10.29.0",
     "unexpected-react": "^4.1.0",
-    "unexpected-sinon": "^10.7.1",
     "webpack": "^2.6.1"
   },
-  "browserify-shim": {
-    "react": "global:React"
-  },
   "standard": {
-    "parser": "babel-eslint",
     "ignore": [
       "node_modules",
-      "dist",
-      "lib",
-      "example",
-      "react-form.js",
-      "stories",
-      "docs"
+      "lib"
     ]
   }
 }
