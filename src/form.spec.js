@@ -6,7 +6,7 @@ import TestUtils from 'react-dom/test-utils'
 import unexpected from 'unexpected'
 import unexpectedReact from 'unexpected-react'
 
-import Form from './form'
+import Form, { formShape } from './form'
 
 const expect = unexpected
   .clone()
@@ -18,6 +18,13 @@ const getFormInstance = jsx => {
 }
 
 describe('Form', () => {
+  it('exports the form api shape', () => {
+    return expect(
+      formShape,
+      'to be defined'
+    );
+  })
+
   it('renders as a div as a default', () => {
     return expect(
       <Form />,

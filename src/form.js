@@ -5,7 +5,7 @@ import _ from './utils'
 const noop = () => undefined
 const reop = d => d
 
-export const FormDefaultProps = {
+const FormDefaultProps = {
   loadState: noop,
   defaultValues: {},
   preValidate: reop,
@@ -19,6 +19,22 @@ export const FormDefaultProps = {
   postSubmit: noop,
   component: 'div'
 }
+
+const formShape = PropTypes.shape({
+  setAllValues: PropTypes.func.isRequired,
+  setValue: PropTypes.func.isRequired,
+  getValue: PropTypes.func.isRequired,
+  setNestedError: PropTypes.func.isRequired,
+  getError: PropTypes.func.isRequired,
+  setTouched: PropTypes.func.isRequired,
+  getTouched: PropTypes.func.isRequired,
+  addValue: PropTypes.func.isRequired,
+  removeValue: PropTypes.func.isRequired,
+  swapValues: PropTypes.func.isRequired,
+  setAllTouched: PropTypes.func.isRequired,
+  resetForm: PropTypes.func.isRequired,
+  submitForm: PropTypes.func.isRequired,
+});
 
 class Form extends React.Component {
   constructor (props) {
@@ -262,8 +278,9 @@ class Form extends React.Component {
 
 Form.displayName = 'Form'
 Form.defaultProps = FormDefaultProps
-Form.childContextTypes = { formApi: PropTypes.object }
+Form.childContextTypes = { formApi: formShape }
 
+export { formShape }
 export default Form
 
 // Utils

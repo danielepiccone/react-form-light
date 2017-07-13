@@ -1,8 +1,5 @@
-import Form, { FormDefaultProps } from './form'
+import Form, { formShape } from './form'
 import FormField from './formField'
 
-module.exports = {
-  Form,
-  FormDefaultProps,
-  FormField
-}
+export { FormField, formShape };
+export default Form;
