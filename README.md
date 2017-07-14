@@ -2,14 +2,13 @@
 [![Build Status](https://travis-ci.org/dpiccone/react-form-light.svg?branch=master)](https://travis-ci.org/dpiccone/react-form-light)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
-A lightweight version of [react-form](https://github.com/tannerlinsley/react-form) with a slightly minimal API
+A lightweight version of [react-form](https://github.com/tannerlinsley/react-form) with a slightly different API
 
-- Supporting a `component` prop instead of using children-as-functions
-- Adding `withFormField` HOC which passes the bound/unbound version of the `form` api
-- Dropped `FormError`, `FormInput` and standard Form Components
+- Supports a `component` prop instead of using children-as-functions
+- Adds `createForm` and `withFormField` HOCs which decorates the component with the form api
+- Drops `FormError`, `FormInput` and standard Form Components
 - Tests
 
-Refer to the original project for the full documentation
 
 ## Installation
 
@@ -17,39 +16,83 @@ Refer to the original project for the full documentation
 $ npm install react-form-light
 ```
 
+## Usage
+
+Refer to the [original project](https://github.com/tannerlinsley/react-form) for the full documentation
+
+### `createForm(options: object, Component)`
+
+Provides the `form` prop to `Component` which exposes the [form api](https://github.com/tannerlinsley/react-form#form-api)
+
+The `options` object will be passed as props to the `Form` component
+
+### `withFormField(field: string, Component)`
+
+Provides the `form` prop to `Component` which exposes the [form api](https://github.com/tannerlinsley/react-form#form-api)
+
+The `field` object is used to bind the form api to a specific field
+
 ## Example
+
+Check out the `storybook` branch
 
 ```javascript
 import React from 'react'
-import { Form, FormField } from 'react-form-light'
+import { createForm, FormField } from 'react-form-light'
 
-const validate = (values) => {
-  const { name } = values;
+const handleSubmit = values => {
+  action('Submitted values')(values)
+}
+
+const handleValidation = values => {
+  const { name } = values
   return {
     name: !name ? 'A name is required' : undefined
   }
 }
 
 const CustomInput = ({ form }) => {
+  const { getTouched, getError, getValue, setValue } = form
+
   return (
-    <input
-      value={form.getValue()}
-      onChange={e => form.setValue(e.target.value)}
-    />
+    <p>
+      <input
+        type='text'
+        value={getValue()}
+        onChange={e => setValue(e.target.value)}
+      />
+      <br />
+      <b>{getTouched() && getError()}</b>
+    </p>
   )
 }
 
-const CustomForm = (
-  <Form
-    onSubmit={this.props.handleSubmit}
-    validate={validate}
-  >
-    <FormField field='foo' component={CustomInput} />
-    <button type='submit'>Submit</button>
-  </Form>
+const Values = ({ form: { getValue } }) => (
+  <p>{JSON.stringify(getValue())}</p>
 )
 
-export default CustomForm
+const CustomForm = props => {
+  const { form: { submitForm } } = props
+  console.log(props)
+  return (
+    <form onSubmit={submitForm}>
+      <p>Name</p>
+      <FormField field='name' component={CustomInput} />
+      <FormField component={Values} />
+      <button type='submit'>Submit me</button>
+    </form>
+  )
+}
+
+const defaultValues = {
+  name: ''
+}
+
+export default createForm({
+  defaultValues,
+  onSubmit: handleSubmit,
+  validate: handleValidation
+}, CustomForm)
 ```
 
 ## Contributing
