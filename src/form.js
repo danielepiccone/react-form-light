@@ -260,19 +260,18 @@ class Form extends React.Component {
 
   render () {
     const props = {
-      ...this.props,
-      ...this.state,
       form: this.getAPI()
     }
-    const { component, children, ...restProps } = props
-    const resolvedChild = typeof children === 'function' ? children(restProps) : children
-    const RootEl = component
-    if (!RootEl) {
-      return resolvedChild
-    }
-    return (
-      <RootEl {...restProps}>{resolvedChild}</RootEl>
-    )
+
+    const { component, ...restProps } = this.props
+
+    Object.keys(restProps).forEach(propName => {
+      if (!(propName in FormDefaultProps)) {
+        props[propName] = restProps[propName]
+      }
+    })
+
+    return React.createElement(component, props)
   }
 }
 
@@ -280,7 +279,17 @@ Form.displayName = 'Form'
 Form.defaultProps = FormDefaultProps
 Form.childContextTypes = { formApi: formShape }
 
-export { formShape }
+const createForm = (args, Component) => {
+  return ownProps => {
+    const formProps = {
+      ...ownProps,
+      component: Component
+    }
+    return React.createElement(Form, formProps)
+  }
+}
+
+export { createForm, formShape }
 export default Form
 
 // Utils

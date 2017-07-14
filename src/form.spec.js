@@ -7,7 +7,7 @@ import renderer from 'react-test-renderer'
 import unexpected from 'unexpected'
 import unexpectedReact from 'unexpected-react'
 
-import Form, { formShape } from './form'
+import Form, { createForm, formShape } from './form'
 
 const expect = unexpected
   .clone()
@@ -433,3 +433,61 @@ describe('Form', () => {
     })
   })
 })
+
+describe('createForm', () => {
+  it('is exported as a function', () => {
+    expect(createForm, 'to be a function')
+  })
+
+  it('returns a new component when called with args, Component', () => {
+    const Form = createForm({}, props => (<div>foo</div>))
+
+    expect(
+      <Form />,
+      'to deeply render as',
+      <div>foo</div>
+    )
+  })
+
+  it('passes the form prop to the component', () => {
+    let ownProps
+
+    const Form = createForm({}, props => {
+      ownProps = props
+      return null
+    })
+
+    renderer.create(<Form />)
+
+    expect(
+      ownProps.form,
+      'to satisfy',
+      {
+        // TODO assert all the form api
+        getValue: expect.it('to be a function'),
+        setValue: expect.it('to be a function')
+      }
+    )
+  })
+
+  it('passes other props to the component', () => {
+    let ownProps
+
+    const Form = createForm({}, props => {
+      ownProps = props
+      return null
+    })
+
+    renderer.create(<Form foo='bar' />)
+
+    expect(
+      ownProps,
+      'to exhaustively satisfy',
+      {
+        foo: 'bar',
+        form: expect.it('to be defined')
+      }
+    )
+  })
+})
+

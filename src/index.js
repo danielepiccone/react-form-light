@@ -1,5 +1,5 @@
-import Form, { formShape } from './form'
+import Form, { createForm, formShape } from './form'
 import FormField from './formField'
 
-export { FormField, formShape }
+export { FormField, createForm, formShape }
 export default Form
