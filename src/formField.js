@@ -6,14 +6,18 @@ export default function FormField (
   { field, component, ...restProps },
   context
 ) {
+  if (!component) {
+    return null
+  }
+
   const formApiBound = _.mapValues(context.formApi, d => _.bind(d, field))
   const form = field ? formApiBound : context.formApi
 
-  if (component) {
-    return React.createElement(component, { ...restProps, form })
-  }
+  return React.createElement(component, { ...restProps, form })
+}
 
-  return restProps.children(form)
+FormField.propTypes = {
+  component: PropTypes.func.isRequired
 }
 
 FormField.contextTypes = {
