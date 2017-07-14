@@ -22,7 +22,9 @@
     "jest": "jest src/ --watchAll",
     "test": "jest src/",
     "coverage": "jest src/ --coverage",
-    "prepublish": "npm run compile"
+    "prepublish": "npm run compile",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "prop-types": "^15.5.8"
@@ -49,7 +51,8 @@
     "standard": "^8.0.0",
     "unexpected": "^10.29.0",
     "unexpected-react": "^4.1.0",
-    "webpack": "^2.6.1"
+    "webpack": "^2.6.1",
+    "@storybook/react": "^3.1.8"
   },
   "standard": {
     "ignore": [
