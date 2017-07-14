@@ -26,11 +26,11 @@ describe('Form', () => {
     )
   })
 
-  it('renders as a <form> as a default', () => {
+  it('renders as a <div> as a default', () => {
     return expect(
       <Form />,
       'to render as',
-      <form />
+      <div />
     )
   })
 
@@ -48,7 +48,7 @@ describe('Form', () => {
     return expect(
       <Form foo='bar' />,
       'to render as',
-      <form foo='bar' />
+      <div foo='bar' />
     )
   })
 
