@@ -262,7 +262,7 @@ class Form extends React.Component {
     const props = {
       ...this.props,
       ...this.state,
-      ...this.getAPI()
+      form: this.getAPI()
     }
     const { component, children, ...restProps } = props
     const resolvedChild = typeof children === 'function' ? children(restProps) : children

@@ -80,6 +80,32 @@ describe('Form', () => {
     )
   })
 
+  it('exposes the form api on the component props', async () => {
+    let componentProps
+
+    const Foo = props => {
+      componentProps = props
+      return null
+    }
+
+    renderer.create(
+      <Form component={Foo} />
+    )
+
+    return expect(
+      componentProps,
+      'to satisfy',
+      {
+        form: {
+          // TODO assert all form API
+          setValue: expect.it('to be defined'),
+          getValue: expect.it('to be defined'),
+          submitForm: expect.it('to be defined')
+        }
+      }
+    )
+  })
+
   it('updates the values when receiving new values as prop', async () => {
     const values = { foo: 'bar' }
 
