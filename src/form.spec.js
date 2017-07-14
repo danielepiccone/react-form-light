@@ -470,6 +470,22 @@ describe('createForm', () => {
     )
   })
 
+  it('passes the arguments to the Form component', () => {
+    // TODO flaky
+
+    const defaultValues = { foo: 'bar' }
+
+    const Form = createForm({ defaultValues }, props => {
+      return <b>{props.form.getValue('foo')}</b>
+    })
+
+    expect(
+      <Form />,
+      'to deeply render as',
+      <b>bar</b>
+    )
+  })
+
   it('passes other props to the component', () => {
     let ownProps
 

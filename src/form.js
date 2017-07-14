@@ -283,6 +283,7 @@ const createForm = (args, Component) => {
   return ownProps => {
     const formProps = {
       ...ownProps,
+      ...args,
       component: Component
     }
     return React.createElement(Form, formProps)
